@@ -1,0 +1,27 @@
+{
+  "name": "internet-number",
+  "version": "1.0.0",
+  "main": "lib/internet-number.js",
+  "module": "src/internet-number.js",
+  "repository": "git@github.com:BlackGlory/internet-number.git",
+  "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
+  "license": "MIT",
+  "scripts": {
+    "build": "babel src -d lib",
+    "test": "jest --coverage",
+    "precommit": "npm test",
+    "prepush": "npm test"
+  },
+  "dependencies": {
+    "axios": "^0.17.1",
+    "babel-runtime": "^6.26.0"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "coveralls": "^3.0.0",
+    "husky": "^0.14.3",
+    "jest": "^22.1.4"
+  }
+}
