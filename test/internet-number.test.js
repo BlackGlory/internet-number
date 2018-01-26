@@ -34,7 +34,7 @@ test('getInternetNumber()', async () => {
     expect(typeof record.type).toBe('string')
     expect(typeof record.start).toBe('string')
     expect(typeof record.value).toBe('string')
-    expect(typeof record.data).toBe('string')
+    expect(typeof record.date).toBe('string')
     expect(typeof record.status).toBe('string')
     expect(Array.isArray(record.extensions)).toBeTruthy()
   }

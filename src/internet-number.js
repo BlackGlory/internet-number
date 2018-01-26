@@ -56,7 +56,7 @@ function parseRecord(line) {
   , type
   , start
   , value
-  , data
+  , date
   , status
   , ...extensions
   ] = line.split('|')
@@ -67,7 +67,7 @@ function parseRecord(line) {
   , type
   , start
   , value
-  , data
+  , date
   , status
   , extensions
   }
