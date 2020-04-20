@@ -1,0 +1,7 @@
+2|afrinic|20200418|11367|00000000|20200418|00000
+afrinic|*|asn|*|3326|summary
+afrinic|*|ipv4|*|4153|summary
+afrinic|*|ipv6|*|3888|summary
+afrinic|ZA|asn|2018|1|20010307|allocated|F36B9F4B
+afrinic|EG|ipv4|41.32.0.0|1048576|20091105|allocated|F36B49FA
+afrinic|ZA|ipv6|2001:4200::|32|20051021|allocated|F36B9F4B

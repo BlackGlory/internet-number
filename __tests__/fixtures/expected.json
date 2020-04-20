@@ -1,0 +1,59 @@
+[
+  {
+    "version": "2"
+  , "registry": "afrinic"
+  , "serial": "20200418"
+  , "records": "11367"
+  , "startdate": "00000000"
+  , "enddate": "20200418"
+  , "UTCoffset": "00000"
+  }
+, {
+    "registry": "afrinic"
+  , "type": "asn"
+  , "count": "3326"
+  , "summary": "summary"
+  }
+, {
+    "registry": "afrinic"
+  , "type": "ipv4"
+  , "count": "4153"
+  , "summary": "summary"
+  }
+, {
+    "registry": "afrinic"
+  , "type": "ipv6"
+  , "count": "3888"
+  , "summary": "summary"
+  }
+, {
+    "registry": "afrinic"
+  , "cc": "ZA"
+  , "type": "asn"
+  , "start": "2018"
+  , "value": "1"
+  , "date": "20010307"
+  , "status": "allocated"
+  , "extensions": ["F36B9F4B"]
+  }
+, {
+    "registry": "afrinic"
+  , "cc": "EG"
+  , "type": "ipv4"
+  , "start": "41.32.0.0"
+  , "value": "1048576"
+  , "date": "20091105"
+  , "status": "allocated"
+  , "extensions": ["F36B49FA"]
+  }
+, {
+    "registry": "afrinic"
+  , "cc": "ZA"
+  , "type": "ipv6"
+  , "start": "2001:4200::"
+  , "value": "32"
+  , "date": "20051021"
+  , "status": "allocated"
+  , "extensions": ["F36B9F4B"]
+  }
+]
