@@ -1,4 +1,6 @@
 import { parseFormat, parseFormatAsync, parseStatisticsFile } from '@src/parse'
+import { isVersion, isSummary, isRecord } from '@src/parse'
+import { IRecord, ISummary, IVersion } from '@src/interfaces'
 import * as path from 'path'
 import * as fs from 'fs'
 
@@ -43,6 +45,112 @@ describe('parseStatisticsFile(filename: string) -> AsyncIterable<Version | Summa
 
       expect(isIter).toBe(true)
       expect(result).toEqual(getExpected())
+    })
+  })
+})
+
+describe('isVersion(val: IVersion | ISummary | IRecord) -> boolean', () => {
+  describe('val is IVersion', () => {
+    it('return true', () => {
+      const val: IVersion = {
+        version: '2'
+      , registry: 'afrinic'
+      , serial: '20200418'
+      , records: '11367'
+      , startdate: '00000000'
+      , enddate: '20200418'
+      , UTCoffset: '00000'
+      }
+
+      const result = isVersion(val)
+
+      expect(result).toBe(true)
+    })
+  })
+
+  describe('val isnt IVersion', () => {
+    it('return false', () => {
+      const val: ISummary = {
+        registry: 'afrinic'
+      , type: 'asn'
+      , count: '3326'
+      , summary: 'summary'
+      }
+
+      const result = isVersion(val)
+
+      expect(result).toBe(false)
+    })
+  })
+})
+
+describe('isSummary(val: IVersion | ISummary | IRecord) -> boolean', () => {
+  describe('val is Summary', () => {
+    it('return true', () => {
+      const val: ISummary = {
+        registry: 'afrinic'
+      , type: 'asn'
+      , count: '3326'
+      , summary: 'summary'
+      }
+
+      const result = isSummary(val)
+
+      expect(result).toBe(true)
+    })
+  })
+
+  describe('val isnt IVersion', () => {
+    it('return false', () => {
+      const val: IVersion = {
+        version: '2'
+      , registry: 'afrinic'
+      , serial: '20200418'
+      , records: '11367'
+      , startdate: '00000000'
+      , enddate: '20200418'
+      , UTCoffset: '00000'
+      }
+
+      const result = isSummary(val)
+
+      expect(result).toBe(false)
+    })
+  })
+})
+
+describe('isVersion(val: IVersion | ISummary | IRecord) -> boolean', () => {
+  describe('val is IVersion', () => {
+    it('return true', () => {
+      const val: IRecord = {
+        registry: 'afrinic'
+      , cc: 'ZA'
+      , type: 'asn'
+      , start: '2018'
+      , value: '1'
+      , date: '20010307'
+      , status: 'allocated'
+      , extensions: ['F36B9F4B']
+      }
+
+      const result = isRecord(val)
+
+      expect(result).toBe(true)
+    })
+  })
+
+  describe('val isnt IVersion', () => {
+    it('return false', () => {
+      const val: ISummary = {
+        registry: 'afrinic'
+      , type: 'asn'
+      , count: '3326'
+      , summary: 'summary'
+      }
+
+      const result = isRecord(val)
+
+      expect(result).toBe(false)
     })
   })
 })

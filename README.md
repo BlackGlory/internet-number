@@ -16,7 +16,10 @@ import { Domian, Registry } from 'internet-number'
 import { downloadLatestStatisticsFile } from 'internet-number'
 
 // Parser
-import { parseStatisticsFile, parseFormat, parseFomratAsync } from 'internet-number'
+import {
+  parseStatisticsFile, parseFormat, parseFomratAsync
+  isVersion, isSummary, isRecord
+} from 'internet-number'
 
 // Exception
 import { ChecksumIncorrectError, UnknownChecksumError } from 'internet-number'
@@ -27,8 +30,10 @@ import { ChecksumIncorrectError, UnknownChecksumError } from 'internet-number'
 ```typescript
 const filename = await downloadLatestStatisticsFile(Domian.AFRINIC, Registry.AFRINIC, '/tmp/latest')
 
-for await (const record of parseStatisticsFile(filename)) {
-  console.log(record)
+for await (const value of parseStatisticsFile(filename)) {
+  if (isVersion(value)) ...
+  if (isSummary(value)) ...
+  if (isRecord(value)) ...
 }
 ```
 
@@ -38,6 +43,9 @@ for await (const record of parseStatisticsFile(filename)) {
 * `function parseStatisticsFile(filename: string): AsyncIterable<IVersion | ISummary | IRecord>`
 * `function parseFormat(lines: Iterable<string>): Iterable<IVersion | ISummary | IRecord>`
 * `function parseFormatAsync(lines: AsyncIterable<string>): AsyncIterable<IVersion | ISummary | IRecord>`
+* `function isVersion(val: IVersion | ISummary | IRecord): boolean`
+* `function isSummary(val: IVersion | ISummary | IRecord): boolean`
+* `function isRecord(val: IVersion | ISummary | IRecord): boolean`
 
 ## Structure
 
