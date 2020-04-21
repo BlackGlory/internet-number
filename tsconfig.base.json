@@ -1,8 +1,10 @@
 {
   "compilerOptions": {
-    "target": "ES2015"
+    "target": "ESNext"
   , "module": "CommonJS"
   , "strict": true
+  , "noUnusedLocals": true
+  , "noUnusedParameters": true
   , "baseUrl": "."
   , "paths": {
       "@src/*": ["src/*"]

@@ -1,12 +1,11 @@
 import { PassThrough } from 'stream'
-import * as path from 'path'
 import { fs as memfs } from 'memfs'
 import { Domain, Registry } from '@src/url'
-import { downloadLatestStatisticsFile, ChecksumIncorrectError, UnknownChecksumError } from '@src/download'
+import { downloadLatestStatisticsFile, ChecksumIncorrectError } from '@src/download'
+import { UnknownChecksumError } from '@src/fetch'
 import { getAsyncError } from '@test/return-style'
 import { createExtendedLatestURL, createExtendedLatestChecksumURL } from '@src/url'
-import * as fs from 'fs'
-import { nanoid } from 'nanoid'
+import { getChecksumFileContent, getStatisticsFileContent, FakeFile } from '@test/utils'
 
 jest.mock('fs', () => memfs)
 
@@ -15,8 +14,9 @@ jest.mock('get-uri', () => {
   return async function getUri(uri: string): Promise<NodeJS.ReadableStream> {
     if (uri in uriToText) {
       const readableStream = new PassThrough()
+      const data = Buffer.from(uriToText[uri])
       setImmediate(() => {
-        readableStream.emit('data', Buffer.from(uriToText[uri]))
+        readableStream.emit('data', data)
         readableStream.emit('end')
       })
       return readableStream
@@ -26,7 +26,7 @@ jest.mock('get-uri', () => {
   }
 })
 
-describe('downloadData(domain: Domain, registry: Registry, filename: string) -> Promise<string>', () => {
+describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filename: string) -> Promise<string>', () => {
   describe('checksum is right', () => {
     it('download file and return filename', async () => {
       const fakeFile = new FakeFile()
@@ -40,13 +40,16 @@ describe('downloadData(domain: Domain, registry: Registry, filename: string) -> 
       fakeFile.setup()
       mockFetch.setup()
 
-      const resultFilename = await downloadLatestStatisticsFile(domain, registry, filename)
-      const content = fakeFile.getContent()
+      try {
+        const resultFilename = await downloadLatestStatisticsFile(domain, registry, filename)
+        const content = fakeFile.getContent()
 
-      fakeFile.teardown()
-      mockFetch.teardown()
-      expect(resultFilename).toBe(filename)
-      expect(content).toBe(getStatisticsFileContent())
+        expect(resultFilename).toBe(filename)
+        expect(content).toBe(getStatisticsFileContent())
+      } finally {
+        fakeFile.teardown()
+        mockFetch.teardown()
+      }
     })
   })
 
@@ -62,13 +65,16 @@ describe('downloadData(domain: Domain, registry: Registry, filename: string) -> 
       fakeFile.setup()
       mockFetch.setup()
 
-      const err = await getAsyncError(() => downloadLatestStatisticsFile(domain, registry, filename))
-      const isFileWritten = fakeFile.isExist()
+      try {
+        const err = await getAsyncError(() => downloadLatestStatisticsFile(domain, registry, filename))
+        const isFileWritten = fakeFile.isExist()
 
-      fakeFile.teardown()
-      mockFetch.teardown()
-      expect(isFileWritten).toBe(false)
-      expect(err).toBeInstanceOf(UnknownChecksumError)
+        expect(isFileWritten).toBe(false)
+        expect(err).toBeInstanceOf(UnknownChecksumError)
+      } finally {
+        fakeFile.teardown()
+        mockFetch.teardown()
+      }
     })
   })
 
@@ -86,50 +92,19 @@ describe('downloadData(domain: Domain, registry: Registry, filename: string) -> 
       fakeFile.setup()
       mockFetch.setup()
 
-      const err = await getAsyncError(() => downloadLatestStatisticsFile(domain, registry, filename))
-      const isFileWritten = fakeFile.isExist()
+      try {
+        const err = await getAsyncError(() => downloadLatestStatisticsFile(domain, registry, filename))
+        const isFileWritten = fakeFile.isExist()
 
-      fakeFile.teardown()
-      mockFetch.teardown()
-      expect(isFileWritten).toBe(true)
-      expect(err).toBeInstanceOf(ChecksumIncorrectError)
+        expect(isFileWritten).toBe(true)
+        expect(err).toBeInstanceOf(ChecksumIncorrectError)
+      } finally {
+        fakeFile.teardown()
+        mockFetch.teardown()
+      }
     })
   })
 })
-
-function getStatisticsFileContent(): string {
-  const fs = jest.requireActual('fs')
-  return fs.readFileSync(path.join(__dirname, './fixtures/statistics.txt'), { encoding: 'utf8'} )
-}
-
-function getChecksumFileContent(): string {
-  const fs = jest.requireActual('fs')
-  return fs.readFileSync(path.join(__dirname, './fixtures/checksum.md5'), { encoding: 'utf8' })
-}
-
-class FakeFile {
-  #id = nanoid()
-
-  setup() {
-    void 0
-  }
-
-  teardown() {
-    if (fs.existsSync(this.getFilename())) fs.unlinkSync(this.getFilename())
-  }
-
-  getFilename(): string {
-    return `/fake-${this.#id}.txt`
-  }
-
-  isExist(): boolean {
-    return fs.existsSync(this.getFilename())
-  }
-
-  getContent(): string {
-    return fs.readFileSync(this.getFilename(), { encoding: 'utf8' })
-  }
-}
 
 class MockFetch {
   #map: { [index: string]: string }

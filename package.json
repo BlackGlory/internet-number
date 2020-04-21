@@ -1,23 +1,25 @@
 {
   "name": "internet-number",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Utility for fethcing and parsing latest statistics files from RIR",
   "files": [
     "lib"
   ],
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "main": "lib/es2018/index.js",
+  "types": "lib/es2018/index.d.ts",
   "repository": "git@github.com:BlackGlory/internet-number.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "scripts": {
-    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "lint": "tslint -t codeFrame 'src/**/*.ts' '__tests__/**/*.ts'",
     "test": "jest --config jest.config.js",
     "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
     "coverage": "jest --coverage --config jest.config.js",
     "prepublishOnly": "yarn clean && yarn build",
     "clean": "rm -rf lib",
-    "build": "tsc --project tsconfig.build.json && tscpaths -p tsconfig.build.json -s ./src -o ./lib"
+    "build": "yarn build:es2015 && yarn build:es2018",
+    "build:es2015": "tsc --project tsconfig.build.json --target es2015 --outDir lib/es2015 && tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2015",
+    "build:es2018": "tsc --project tsconfig.build.json --target es2018 --outDir lib/es2018 && tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2018"
   },
   "husky": {
     "hooks": {
