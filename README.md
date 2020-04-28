@@ -42,9 +42,9 @@ for await (const value of parseStatisticsFile(filename)) {
 
 ## API
 
-* `downloadLatestStatisticsFile(domain: Domain, registry: Registry, filename: string): Promise<string>`
-* `fetchLatestChecksum(domain: Domain, registry: Registry): Promise<string>`
-* `fetchLatestStatisticsFile(domain: Domain, registry: Registry): Promise<NodeJS.ReadableStream>`
+* `function downloadLatestStatisticsFile(domain: Domain, registry: Registry, filename: string): Promise<string>`
+* `function fetchLatestChecksum(domain: Domain, registry: Registry): Promise<string>`
+* `function fetchLatestStatisticsFile(domain: Domain, registry: Registry): Promise<NodeJS.ReadableStream>`
 * `function parseStatisticsFile(filename: string): AsyncIterable<IVersion | ISummary | IRecord>`
 * `function parseFormat(lines: Iterable<string>): Iterable<IVersion | ISummary | IRecord>`
 * `function parseFormatAsync(lines: AsyncIterable<string>): AsyncIterable<IVersion | ISummary | IRecord>`
