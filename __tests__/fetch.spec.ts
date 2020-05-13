@@ -3,7 +3,7 @@ import { PassThrough } from 'stream'
 import * as stream from 'stream'
 import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from '@src/url'
 import { getChecksum, getChecksumFileContent, getStatisticsFileContent } from '@test/utils'
-import { getAsyncError } from '@test/return-style'
+import { getErrorAsync } from 'return-style'
 import { fetchLatestChecksum, fetchLatestStatisticsFile, UnknownChecksumError } from '@src/fetch'
 
 jest.mock('fs', () => memfs)
@@ -56,7 +56,7 @@ describe('fetchChecksum(domain: Domain, registry: Registry): Promise<string>', (
       mockFetch.setup()
 
       try {
-        const err = await getAsyncError(() => fetchLatestChecksum(domain, registry))
+        const err = await getErrorAsync(fetchLatestChecksum(domain, registry))
 
         expect(err).toBeInstanceOf(UnknownChecksumError)
       } finally {

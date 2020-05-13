@@ -3,7 +3,7 @@ import { fs as memfs } from 'memfs'
 import { Domain, Registry } from '@src/url'
 import { downloadLatestStatisticsFile, ChecksumIncorrectError } from '@src/download'
 import { UnknownChecksumError } from '@src/fetch'
-import { getAsyncError } from '@test/return-style'
+import { getErrorAsync } from 'return-style'
 import { createExtendedLatestURL, createExtendedLatestChecksumURL } from '@src/url'
 import { getChecksumFileContent, getStatisticsFileContent, FakeFile } from '@test/utils'
 
@@ -66,7 +66,7 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
       mockFetch.setup()
 
       try {
-        const err = await getAsyncError(() => downloadLatestStatisticsFile(domain, registry, filename))
+        const err = await getErrorAsync(downloadLatestStatisticsFile(domain, registry, filename))
         const isFileWritten = fakeFile.isExist()
 
         expect(isFileWritten).toBe(false)
@@ -93,7 +93,7 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
       mockFetch.setup()
 
       try {
-        const err = await getAsyncError(() => downloadLatestStatisticsFile(domain, registry, filename))
+        const err = await getErrorAsync(downloadLatestStatisticsFile(domain, registry, filename))
         const isFileWritten = fakeFile.isExist()
 
         expect(isFileWritten).toBe(true)
