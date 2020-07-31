@@ -13,7 +13,7 @@ export async function fetchLatestChecksum(domain: Domain, registry: Registry): P
   return result
 
   function parseChecksum(text: string) {
-    const re = /MD5 \([\w\-]+\) = ([a-z0-9]{32})/
+    const re = /MD5 \([\w-]+\) = ([a-z0-9]{32})/
     const result = text.match(re)
     if (result) {
       return result[1]
