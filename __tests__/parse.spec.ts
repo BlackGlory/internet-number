@@ -4,7 +4,7 @@ import { IRecord, ISummary, IVersion } from '@src/interfaces'
 import * as path from 'path'
 import * as fs from 'fs'
 import { toArray, toArrayAsync } from 'iterable-operator'
-import '@test/matchers'
+import '@blackglory/jest-matchers'
 
 describe('parseFormat(lines: Iterable<string>) -> Iterable<IVersion | ISummary | IRecord>', () => {
   describe('call', () => {
