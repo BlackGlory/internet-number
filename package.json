@@ -19,7 +19,8 @@
     "clean": "rm -rf lib",
     "build": "yarn build:es2015 && yarn build:es2018",
     "build:es2015": "tsc --project tsconfig.build.json --target es2015 --outDir lib/es2015 && tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2015",
-    "build:es2018": "tsc --project tsconfig.build.json --target es2018 --outDir lib/es2018 && tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2018"
+    "build:es2018": "tsc --project tsconfig.build.json --target es2018 --outDir lib/es2018 && tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2018",
+    "release": "standard-version"
   },
   "husky": {
     "hooks": {
@@ -43,6 +44,7 @@
     "memfs": "^3.2.0",
     "nanoid": "^3.1.12",
     "return-style": "^0.9.0",
+    "standard-version": "^9.0.0",
     "ts-jest": "^26.1.4",
     "tscpaths": "^0.0.9",
     "typescript": "^3.9.7"
