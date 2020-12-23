@@ -1,6 +1,6 @@
 # internet-number [![npm](https://img.shields.io/npm/v/internet-number.svg?maxAge=86400)](https://www.npmjs.com/package/internet-number) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackGlory/internet-number/master/LICENSE)
 
-Utility for fethcing and parsing latest statistics files from RIR
+Utilities for fethcing and parsing latest statistics files from RIR
 
 ## Installation
 

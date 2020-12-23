@@ -1,7 +1,7 @@
 {
   "name": "internet-number",
   "version": "2.2.2",
-  "description": "Utility for fethcing and parsing latest statistics files from RIR",
+  "description": "Utilities for fethcing and parsing latest statistics files from RIR",
   "files": [
     "lib"
   ],
