@@ -13,13 +13,10 @@ let uriToText: { [index: string]: string } = {}
 jest.mock('get-uri', () => {
   return async function getUri(uri: string): Promise<NodeJS.ReadableStream> {
     if (uri in uriToText) {
-      const readableStream = new PassThrough()
-      const data = Buffer.from(uriToText[uri])
-      setImmediate(() => {
-        readableStream.emit('data', data)
-        readableStream.emit('end')
-      })
-      return readableStream
+      const pass = new PassThrough()
+      pass.write(uriToText[uri])
+      pass.end()
+      return pass
     } else {
       throw new Error('Bad URL')
     }
