@@ -64,7 +64,7 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
 
       try {
         const err = await getErrorPromise(downloadLatestStatisticsFile(domain, registry, filename))
-        const isFileWritten = fakeFile.isExist()
+        const isFileWritten = fakeFile.exists()
 
         expect(isFileWritten).toBe(false)
         expect(err).toBeInstanceOf(UnknownChecksumError)
@@ -91,7 +91,7 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
 
       try {
         const err = await getErrorPromise(downloadLatestStatisticsFile(domain, registry, filename))
-        const isFileWritten = fakeFile.isExist()
+        const isFileWritten = fakeFile.exists()
 
         expect(isFileWritten).toBe(true)
         expect(err).toBeInstanceOf(ChecksumIncorrectError)

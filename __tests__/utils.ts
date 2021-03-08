@@ -29,7 +29,7 @@ export class FakeFile {
     return `/fake-${this.#id}.txt`
   }
 
-  isExist(): boolean {
+  exists(): boolean {
     return fs.existsSync(this.getFilename())
   }
 
