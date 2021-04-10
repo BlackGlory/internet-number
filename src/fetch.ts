@@ -1,11 +1,14 @@
-import getUri = require('get-uri')
+import getUri from 'get-uri'
 import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from './url'
+import { CustomError } from '@blackglory/errors'
 
-export class UnknownChecksumError extends Error {
-  name = this.constructor.name
-}
-
-export async function fetchLatestChecksum(domain: Domain, registry: Registry): Promise<string> {
+/**
+ * @throws {UnknownChecksumError}
+ */
+export async function fetchLatestChecksum(
+  domain: Domain
+, registry: Registry
+): Promise<string> {
   const url = createExtendedLatestChecksumURL(domain, registry)
   const stream = await createReadStreamFromURL(url)
   const text = await readStringFromStream(stream)
@@ -44,3 +47,5 @@ export async function fetchLatestStatisticsFile(domain: Domain, registry: Regist
 function createReadStreamFromURL(url: string): Promise<NodeJS.ReadableStream> {
   return getUri(url, {})
 }
+
+export class UnknownChecksumError extends CustomError {}

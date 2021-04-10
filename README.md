@@ -2,36 +2,22 @@
 
 Utilities for fethcing and parsing latest statistics files from RIR
 
-## Installation
+## Install
 
 ```sh
+npm install --save internet-number
+# or
 yarn add internet-number
-```
-
-```javascript
-// Constant
-import { Domian, Registry } from 'internet-number'
-
-// Downloader
-import { downloadLatestStatisticsFile } from 'internet-number'
-
-// Fetcher
-import { fetchLatestChecksum, fetchLatestStatisticsFile } from 'internet-number'
-
-// Parser
-import {
-  parseStatisticsFile, parseFormat, parseFomratAsync
-  isVersion, isSummary, isRecord
-} from 'internet-number'
-
-// Exception
-import { ChecksumIncorrectError, UnknownChecksumError } from 'internet-number'
 ```
 
 ## Usage
 
 ```typescript
-const filename = await downloadLatestStatisticsFile(Domian.AFRINIC, Registry.AFRINIC, '/tmp/latest')
+const filename = await downloadLatestStatisticsFile(
+  Domian.AFRINIC
+, Registry.AFRINIC
+, '/tmp/latest'
+)
 
 for await (const value of parseStatisticsFile(filename)) {
   if (isVersion(value)) ...
@@ -41,18 +27,6 @@ for await (const value of parseStatisticsFile(filename)) {
 ```
 
 ## API
-
-* `function downloadLatestStatisticsFile(domain: Domain, registry: Registry, filename: string): Promise<string>`
-* `function fetchLatestChecksum(domain: Domain, registry: Registry): Promise<string>`
-* `function fetchLatestStatisticsFile(domain: Domain, registry: Registry): Promise<NodeJS.ReadableStream>`
-* `function parseStatisticsFile(filename: string): AsyncIterable<IVersion | ISummary | IRecord>`
-* `function parseFormat(lines: Iterable<string>): Iterable<IVersion | ISummary | IRecord>`
-* `function parseFormatAsync(lines: AsyncIterable<string>): AsyncIterable<IVersion | ISummary | IRecord>`
-* `function isVersion(val: IVersion | ISummary | IRecord): boolean`
-* `function isSummary(val: IVersion | ISummary | IRecord): boolean`
-* `function isRecord(val: IVersion | ISummary | IRecord): boolean`
-
-## Structure
 
 ```ts
 interface IVersion {
@@ -82,4 +56,69 @@ interface IRecord {
   status: string
   extensions: string[]
 }
+```
+
+### downloadLatestStatisticsFile
+
+```ts
+function downloadLatestStatisticsFile(
+  domain: Domain
+, registry: Registry
+, filename: string
+): Promise<string>
+```
+
+### fetchLatestChecksum
+
+```ts
+function fetchLatestChecksum(domain: Domain, registry: Registry): Promise<string>
+```
+
+### fetchLatestStatisticsFile
+
+```ts
+function fetchLatestStatisticsFile(
+  domain: Domain
+, registry: Registry
+): Promise<NodeJS.ReadableStream>
+```
+
+### parseStatisticsFile
+
+```ts
+function parseStatisticsFile(
+  filename: string
+): AsyncIterable<IVersion | ISummary | IRecord>
+```
+
+### parseFormat
+
+```ts
+function parseFormat(lines: Iterable<string>): Iterable<IVersion | ISummary | IRecord>
+```
+
+### parseFormatAsync
+
+```ts
+function parseFormatAsync(
+  lines: AsyncIterable<string>
+): AsyncIterable<IVersion | ISummary | IRecord>
+```
+
+### isVersion
+
+```ts
+function isVersion(val: IVersion | ISummary | IRecord): boolean
+```
+
+### isSummary
+
+```ts
+function isSummary(val: IVersion | ISummary | IRecord): boolean
+```
+
+### isRecord
+
+```ts
+function isRecord(val: IVersion | ISummary | IRecord): boolean
 ```

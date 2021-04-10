@@ -1,17 +1,17 @@
 import * as fs from 'fs'
-import md5File = require('md5-file')
+import md5File from 'md5-file'
 import { fetchLatestChecksum, fetchLatestStatisticsFile } from './fetch'
 import { Domain, Registry } from './url'
+import { CustomError } from '@blackglory/errors'
 
-export class ChecksumIncorrectError extends Error {
-  name = this.constructor.name
-
-  constructor(expected: string, actual: string) {
-    super(`${actual} != ${expected}`)
-  }
-}
-
-export async function downloadLatestStatisticsFile(domain: Domain, registry: Registry, filename: string): Promise<string> {
+/**
+ * @throws {ChecksumIncorrectError}
+ */
+export async function downloadLatestStatisticsFile(
+  domain: Domain
+, registry: Registry
+, filename: string
+): Promise<string> {
   const checksum = await fetchLatestChecksum(domain, registry)
   const stream = await fetchLatestStatisticsFile(domain, registry)
   await saveFile(stream, filename)
@@ -20,7 +20,9 @@ export async function downloadLatestStatisticsFile(domain: Domain, registry: Reg
 
   async function checkFile(filename: string, checksum: string): Promise<void> {
     const fileChecksum = await md5File(filename)
-    if (fileChecksum !== checksum) throw new ChecksumIncorrectError(checksum, fileChecksum)
+    if (fileChecksum !== checksum) {
+      throw new ChecksumIncorrectError(checksum, fileChecksum)
+    }
   }
 
   async function saveFile(readStream: NodeJS.ReadableStream, filename: string): Promise<string> {
@@ -35,5 +37,11 @@ export async function downloadLatestStatisticsFile(domain: Domain, registry: Reg
         readStream.pipe(writeStream)
       })
     }
+  }
+}
+
+export class ChecksumIncorrectError extends CustomError {
+  constructor(expected: string, actual: string) {
+    super(`${actual} != ${expected}`)
   }
 }

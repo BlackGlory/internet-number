@@ -2,7 +2,9 @@ import * as fs from 'fs'
 import * as readline from 'readline'
 import { IRecord, ISummary, IVersion } from './interfaces'
 
-export function* parseFormat(lines: Iterable<string>): Iterable<IVersion | ISummary | IRecord> {
+export function* parseFormat(
+  lines: Iterable<string>
+): Iterable<IVersion | ISummary | IRecord> {
   let isFileHeader = true
   for (const line of lines) {
     if (isEmptyString(line)) continue
@@ -12,17 +14,21 @@ export function* parseFormat(lines: Iterable<string>): Iterable<IVersion | ISumm
         yield parseVersionString(line)
         continue
       }
+
       if (isSummaryString(line)) {
         yield parseSummaryString(line)
         continue
       }
+
       isFileHeader = false
     }
     if (isRecordString(line)) yield parseRecordString(line)
   }
 }
 
-export async function* parseFormatAsync(lines: AsyncIterable<string>): AsyncIterable<IVersion | ISummary | IRecord> {
+export async function* parseFormatAsync(
+  lines: AsyncIterable<string>
+): AsyncIterable<IVersion | ISummary | IRecord> {
   let isFileHeader = true
   for await (const line of lines) {
     if (isEmptyString(line)) continue
@@ -32,17 +38,21 @@ export async function* parseFormatAsync(lines: AsyncIterable<string>): AsyncIter
         yield parseVersionString(line)
         continue
       }
+
       if (isSummaryString(line)) {
         yield parseSummaryString(line)
         continue
       }
+
       isFileHeader = false
     }
     if (isRecordString(line)) yield parseRecordString(line)
   }
 }
 
-export function parseStatisticsFile(filename: string): AsyncIterable<IVersion | ISummary | IRecord> {
+export function parseStatisticsFile(
+  filename: string
+): AsyncIterable<IVersion | ISummary | IRecord> {
   return parseFormatAsync(processFileByLine(filename))
 
   function processFileByLine(filename: string): AsyncIterable<string> {
@@ -86,7 +96,7 @@ function isVersionString(line: string): boolean {
 
 function parseVersionString(line: string): IVersion {
   // version|registry|serial|records|startdate|enddate|UTCoffset
-  const [ version, registry, serial, records, startdate, enddate, UTCoffset ] = line.split('|')
+  const [version, registry, serial, records, startdate, enddate, UTCoffset] = line.split('|')
   return { version, registry, serial, records, startdate, enddate, UTCoffset }
 }
 
@@ -124,6 +134,7 @@ function parseRecordString(line: string): IRecord {
 
 function getNumberOfVerticalBar(text: string): number {
   const NOT_FOUND = -1
+
   let count = 0
   let position = 0
   while (true) {
