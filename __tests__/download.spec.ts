@@ -1,13 +1,10 @@
 import { PassThrough } from 'stream'
-import { fs as memfs } from 'memfs'
 import { Domain, Registry } from '@src/url'
 import { downloadLatestStatisticsFile, ChecksumIncorrectError } from '@src/download'
 import { UnknownChecksumError } from '@src/fetch'
 import { getErrorPromise } from 'return-style'
 import { createExtendedLatestURL, createExtendedLatestChecksumURL } from '@src/url'
 import { getChecksumFileContent, getStatisticsFileContent, FakeFile } from '@test/utils'
-
-jest.mock('fs', () => memfs)
 
 let uriToText: { [index: string]: string } = {}
 jest.mock('get-uri', () => {
@@ -23,7 +20,13 @@ jest.mock('get-uri', () => {
   }
 })
 
-describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filename: string) -> Promise<string>', () => {
+describe(`
+  downloadLatestStatisticsFile(
+    domain: Domain
+  , registry: Registry
+  , filename: string
+  ): Promise<string>
+`, () => {
   describe('checksum is right', () => {
     it('download file and return filename', async () => {
       const fakeFile = new FakeFile()
@@ -38,7 +41,11 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
       mockFetch.setup()
 
       try {
-        const resultFilename = await downloadLatestStatisticsFile(domain, registry, filename)
+        const resultFilename = await downloadLatestStatisticsFile(
+          domain
+        , registry
+        , filename
+        )
         const content = fakeFile.getContent()
 
         expect(resultFilename).toBe(filename)
@@ -56,14 +63,17 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
       const domain = Domain.AFRINIC
       const registry = Registry.AFRINIC
       const filename = fakeFile.getFilename()
-      const mockFetch = new MockFetch({ [createExtendedLatestURL(domain, registry)]: getStatisticsFileContent()
+      const mockFetch = new MockFetch({
+        [createExtendedLatestURL(domain, registry)]: getStatisticsFileContent()
       , [createExtendedLatestChecksumURL(domain, registry)]: ''
       })
       fakeFile.setup()
       mockFetch.setup()
 
       try {
-        const err = await getErrorPromise(downloadLatestStatisticsFile(domain, registry, filename))
+        const err = await getErrorPromise(
+          downloadLatestStatisticsFile(domain, registry, filename)
+        )
         const isFileWritten = fakeFile.exists()
 
         expect(isFileWritten).toBe(false)
@@ -90,7 +100,9 @@ describe('downloadLatestStatisticsFile(domain: Domain, registry: Registry, filen
       mockFetch.setup()
 
       try {
-        const err = await getErrorPromise(downloadLatestStatisticsFile(domain, registry, filename))
+        const err = await getErrorPromise(
+          downloadLatestStatisticsFile(domain, registry, filename)
+        )
         const isFileWritten = fakeFile.exists()
 
         expect(isFileWritten).toBe(true)

@@ -1,12 +1,9 @@
-import { fs as memfs } from 'memfs'
 import { PassThrough } from 'stream'
 import * as stream from 'stream'
 import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from '@src/url'
 import { getChecksum, getChecksumFileContent, getStatisticsFileContent } from '@test/utils'
 import { getErrorPromise } from 'return-style'
 import { fetchLatestChecksum, fetchLatestStatisticsFile, UnknownChecksumError } from '@src/fetch'
-
-jest.mock('fs', () => memfs)
 
 let uriToText: { [index: string]: string } = {}
 jest.mock('get-uri', () => {

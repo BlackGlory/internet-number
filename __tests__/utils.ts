@@ -1,6 +1,6 @@
 import * as fs from 'fs'
-import { nanoid } from 'nanoid'
 import * as path from 'path'
+import { tmpNameSync } from 'tmp-promise'
 
 export function getStatisticsFileContent(): string {
   const fs = jest.requireActual('fs')
@@ -17,7 +17,7 @@ export function getChecksumFileContent(): string {
 }
 
 export class FakeFile {
-  #id = nanoid()
+  filename = tmpNameSync()
 
   setup() {}
 
@@ -26,7 +26,7 @@ export class FakeFile {
   }
 
   getFilename(): string {
-    return `/fake-${this.#id}.txt`
+    return this.filename
   }
 
   exists(): boolean {
