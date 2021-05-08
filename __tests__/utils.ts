@@ -1,10 +1,11 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { tmpNameSync } from 'tmp-promise'
+import { createTempFilenameSync } from 'extra-filesystem'
 
 export function getStatisticsFileContent(): string {
   const fs = jest.requireActual('fs')
-  return fs.readFileSync(path.join(__dirname, './fixtures/statistics.txt'), { encoding: 'utf8'} )
+  const filename = path.join(__dirname, './fixtures/statistics.txt')
+  return fs.readFileSync(filename, 'utf-8')
 }
 
 export function getChecksum(): string {
@@ -13,16 +14,19 @@ export function getChecksum(): string {
 
 export function getChecksumFileContent(): string {
   const fs = jest.requireActual('fs')
-  return fs.readFileSync(path.join(__dirname, './fixtures/checksum.md5'), { encoding: 'utf8' })
+  const filename = path.join(__dirname, './fixtures/checksum.md5')
+  return fs.readFileSync(filename, 'utf-8')
 }
 
 export class FakeFile {
-  filename = tmpNameSync()
+  filename = createTempFilenameSync()
 
   setup() {}
 
   teardown() {
-    if (fs.existsSync(this.getFilename())) fs.unlinkSync(this.getFilename())
+    if (fs.existsSync(this.getFilename())) {
+      fs.rmSync(this.getFilename())
+    }
   }
 
   getFilename(): string {
@@ -34,6 +38,6 @@ export class FakeFile {
   }
 
   getContent(): string {
-    return fs.readFileSync(this.getFilename(), { encoding: 'utf8' }) as string
+    return fs.readFileSync(this.getFilename(), 'utf-8') as string
   }
 }
