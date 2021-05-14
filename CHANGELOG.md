@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.12](https://github.com/BlackGlory/internet-number/compare/v2.2.11...v2.2.12) (2021-05-14)
+
 ### [2.2.11](https://github.com/BlackGlory/internet-number/compare/v2.2.10...v2.2.11) (2021-05-08)
 
 ### [2.2.10](https://github.com/BlackGlory/internet-number/compare/v2.2.9...v2.2.10) (2021-04-10)
