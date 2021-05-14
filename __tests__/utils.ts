@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import { createTempFilenameSync } from 'extra-filesystem'
+import { createTempNameSync } from 'extra-filesystem'
 
 export function getStatisticsFileContent(): string {
   const fs = jest.requireActual('fs')
@@ -19,7 +19,7 @@ export function getChecksumFileContent(): string {
 }
 
 export class FakeFile {
-  filename = createTempFilenameSync()
+  filename = createTempNameSync()
 
   setup() {}
 
