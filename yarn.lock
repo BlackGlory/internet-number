@@ -287,15 +287,15 @@
   resolved "https://registry.yarnpkg.com/@blackglory/go/-/go-0.1.0.tgz#a145a98d17593549a91ed79766230f5c7719e1de"
   integrity sha512-p6kO5ThjCLRg3giGiaYhYcMZeA2akHAcCzjW7D5zz2YTJQ2JDKNzSk4WkKEFSpSiFcMzeNABN+tz1tasn4D2tg==
 
-"@blackglory/jest-matchers@^0.1.16":
-  version "0.1.16"
-  resolved "https://registry.yarnpkg.com/@blackglory/jest-matchers/-/jest-matchers-0.1.16.tgz#8d9ba7b835e5a54003994dbb78b730f507587f90"
-  integrity sha512-GHBMxSZwz48UYSjQRLRUruqUHttZG9NObijuwQ3FjPpxzKEqOaXqhvYFSi7nGAGDz3OeZ0RBC4ZH+ybluos9Dw==
+"@blackglory/jest-matchers@^0.1.17":
+  version "0.1.17"
+  resolved "https://registry.yarnpkg.com/@blackglory/jest-matchers/-/jest-matchers-0.1.17.tgz#d0fef430e91bd33a9c3db9513bcb7b3c710cf8ee"
+  integrity sha512-2M38lrvqQC85/lf1ZHMRj+gPuMoiCXrqmOM0z1Z+9gjQP/sSwxDc8HJyDYyAn22wl3WPT9OLzx9xi+cY95Ghfg==
   dependencies:
     "@blackglory/go" "^0.1.0"
     "@blackglory/types" "^0.4.2"
-    "@types/node" "^15.0.2"
-    extra-filesystem "^0.2.10"
+    "@types/node" "14"
+    extra-filesystem "^0.3.0"
     extra-promise "^0.16.4"
     extra-stream "^0.1.1"
     jest-diff "^26.6.2"
@@ -306,6 +306,14 @@
   integrity sha512-7e4UntvEXuaPD1Rbj5mrMXZiTC2G0fkfLqA501JB3i0dx4miMVYicxV3rbl4FFmIcRqSg+lFvw/jICXGCsQ7iw==
   dependencies:
     "@blackglory/errors" "^1.1.2"
+
+"@blackglory/structures@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@blackglory/structures/-/structures-0.2.1.tgz#afab7c5f4cc64f4614aff6c609ad542d9f6796d0"
+  integrity sha512-Qtrw+64zlsIJEP74yfbl3x8h9IkkuevBO+u2DnhVglbanuHG+i8Yl6bhiTCESwMutUDgqeY83yYRpfEgrDPh7g==
+  dependencies:
+    "@blackglory/errors" "^1.1.2"
+    hotypes "^0.2.1"
 
 "@blackglory/types@^0.4.0", "@blackglory/types@^0.4.1", "@blackglory/types@^0.4.2":
   version "0.4.2"
@@ -814,11 +822,6 @@
   version "14.14.44"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.44.tgz#df7503e6002847b834371c004b372529f3f85215"
   integrity sha512-+gaugz6Oce6ZInfI/tK4Pq5wIIkJMEJUu92RB3Eu93mtj4wjjjz9EB5mLp5s1pSsLXdC/CPut/xF20ZzAQJbTA==
-
-"@types/node@^15.0.2":
-  version "15.0.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-15.0.2.tgz#51e9c0920d1b45936ea04341aa3e2e58d339fb67"
-  integrity sha512-p68+a+KoxpoB47015IeYZYRrdqMUcpbK8re/zpFB8Ld46LHC1lPEbp3EXgkEhAYEcPvjJF6ZO+869SQ0aH1dcA==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2277,11 +2280,6 @@ extra-fetch@^1.7.1:
     return-style "^0.12.3"
     value-getter "^0.1.13"
 
-extra-filesystem@^0.2.10:
-  version "0.2.14"
-  resolved "https://registry.yarnpkg.com/extra-filesystem/-/extra-filesystem-0.2.14.tgz#199d6dd00d578c05af42993ab6bc851756fcfb11"
-  integrity sha512-SrWvy0BCkVip2etl3s4+Ujo6S8rY6lkRzr3h6coHspnjiUn2/sKqWAaiGmuZqeVZ1brn1v3QEsmZc1+xne08UA==
-
 extra-filesystem@^0.3.0:
   version "0.3.0"
   resolved "https://registry.yarnpkg.com/extra-filesystem/-/extra-filesystem-0.3.0.tgz#9b1ee35c5d31651f1fba4f1654bf21d1e82dd875"
@@ -2290,10 +2288,25 @@ extra-filesystem@^0.3.0:
     extra-promise "^0.16.4"
     tmp-promise "^3.0.2"
 
+extra-filesystem@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/extra-filesystem/-/extra-filesystem-0.3.1.tgz#f1f46757468abb8ce45af2e9e8f8c849c3a80165"
+  integrity sha512-x3DpeeZjL50JosWxo7/lQFu1//vyCGp3ejthulk3nHWuZQCbHcmSTn46NmBjDKwMHnSBcpFuoM1c5JlzSn+CVQ==
+  dependencies:
+    extra-promise "^0.16.6"
+    tmp-promise "^3.0.2"
+
 extra-generator@^0.2.4:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/extra-generator/-/extra-generator-0.2.4.tgz#ad1a45b3b2b822729f7f81bc5418df68479ed24c"
   integrity sha512-f7yUfD8Xk0MqnXUqEmac/GU+D0Uae1H+V0vwQ9VL441lo9oxBjYR+7sKDII05Nhb31Pdjq7ZDKz39qCmWKuz0g==
+  dependencies:
+    "@blackglory/errors" "^1.1.2"
+
+extra-generator@^0.2.5:
+  version "0.2.6"
+  resolved "https://registry.yarnpkg.com/extra-generator/-/extra-generator-0.2.6.tgz#249cdfb6cb8802bbd89cb29afe02ec1464d3477f"
+  integrity sha512-/mF8IljkOETO5AzxD3lxxRsfiAe/HUfIlfSZnr8ICk+C8GeAAAUTgJZg0ZxUl4uc0hrGsd4Tjt+Nk6i+F1YQ0A==
   dependencies:
     "@blackglory/errors" "^1.1.2"
 
@@ -2318,6 +2331,22 @@ extra-promise@^0.16.4:
     extra-fetch "^1.7.1"
     extra-generator "^0.2.4"
     iterable-operator "^0.13.6"
+    reflect-metadata "^0.1.13"
+    return-style "^0.12.3"
+
+extra-promise@^0.16.6:
+  version "0.16.6"
+  resolved "https://registry.yarnpkg.com/extra-promise/-/extra-promise-0.16.6.tgz#e084e728e7a695eb7a3639d1faf43ddc18aec929"
+  integrity sha512-wlTO/U9bBg3OUZ4a9iArShDk1sx8Oi5CXCCQsS4qQCar28LDxyMlJfwrXEqxYlTO9/ygeZRQKjwEkuiDMA8D6g==
+  dependencies:
+    "@blackglory/errors" "^1.1.2"
+    "@blackglory/go" "^0.1.0"
+    "@blackglory/structures" "^0.2.1"
+    "@blackglory/types" "^0.4.2"
+    eventemitter3 "^4.0.7"
+    extra-fetch "^1.7.1"
+    extra-generator "^0.2.5"
+    iterable-operator "^0.14.0"
     reflect-metadata "^0.1.13"
     return-style "^0.12.3"
 
@@ -2907,6 +2936,11 @@ hotypes@^0.2.0:
   resolved "https://registry.yarnpkg.com/hotypes/-/hotypes-0.2.0.tgz#148e2baa05285e56ed3a7d5f1a97d82ca7a201ca"
   integrity sha512-pvTMM0Zu/mBymLt8P1+1pANMgdR44po7mMxwJedGNRZ5Ixiw56tWWNB/nkLdyqqwvV8GTxGMcyv368SrAbciJw==
 
+hotypes@^0.2.1:
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/hotypes/-/hotypes-0.2.1.tgz#80fa4e0fc8e856f22417cb21ff555878793cf6d7"
+  integrity sha512-+qzhm3TZRt/41RG3nM6SsKvSTtchli6peI+uv/lVfnWjcCVr6gYOotb8t4DAa7RTj0TM/mAye/9ycfuniMNaGQ==
+
 html-encoding-sniffer@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/html-encoding-sniffer/-/html-encoding-sniffer-2.0.1.tgz#42a6dc4fd33f00281176e8b23759ca4e4fa185f3"
@@ -3331,6 +3365,15 @@ iterable-operator@^0.13.6:
   dependencies:
     "@blackglory/go" "^0.1.0"
     "@blackglory/types" "^0.4.1"
+
+iterable-operator@^0.14.0:
+  version "0.14.0"
+  resolved "https://registry.yarnpkg.com/iterable-operator/-/iterable-operator-0.14.0.tgz#94a982e2a3ebee03ae52df08fd8c5928ee742b41"
+  integrity sha512-WqLXpr9mJvHzGx86QzcJyJi2u/F7MGlDBxTr85y9z/y+nHNLNv8DT405FOGhCxx1f7MaYNZHmCMCuL31mOc9eA==
+  dependencies:
+    "@blackglory/errors" "^1.1.2"
+    "@blackglory/go" "^0.1.0"
+    "@blackglory/types" "^0.4.2"
 
 jest-changed-files@^26.6.2:
   version "26.6.2"
