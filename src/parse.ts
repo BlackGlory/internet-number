@@ -1,6 +1,6 @@
 import * as fs from 'fs'
 import * as readline from 'readline'
-import { IRecord, ISummary, IVersion } from './interfaces'
+import { IRecord, ISummary, IVersion } from './types'
 
 export function* parseFormat(
   lines: Iterable<string>

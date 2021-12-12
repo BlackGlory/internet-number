@@ -1,6 +1,6 @@
 import { parseFormat, parseFormatAsync, parseStatisticsFile } from '@src/parse'
 import { isVersion, isSummary, isRecord } from '@src/parse'
-import { IRecord, ISummary, IVersion } from '@src/interfaces'
+import { IRecord, ISummary, IVersion } from '@src/types'
 import * as path from 'path'
 import * as fs from 'fs'
 import { toArray, toArrayAsync } from 'iterable-operator'

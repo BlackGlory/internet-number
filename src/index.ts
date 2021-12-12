@@ -9,4 +9,4 @@ export {
   parseFormat, parseFormatAsync, parseStatisticsFile
 , isRecord, isSummary, isVersion
 } from './parse'
-export * from './interfaces'
+export * from './types'
