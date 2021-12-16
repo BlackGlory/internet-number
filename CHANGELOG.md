@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/BlackGlory/internet-number/compare/v2.2.16...v3.0.0) (2021-12-16)
+
+
+### ⚠ BREAKING CHANGES
+
+* - The minimum version is Node.js v16
+
+* upgrade dependencies ([a890e32](https://github.com/BlackGlory/internet-number/commit/a890e325ad9ec01794afd796cbb841569730f5ed))
+
 ### [2.2.16](https://github.com/BlackGlory/internet-number/compare/v2.2.15...v2.2.16) (2021-12-12)
 
 ### [2.2.15](https://github.com/BlackGlory/internet-number/compare/v2.2.14...v2.2.15) (2021-10-14)
