@@ -116,14 +116,14 @@ describe(`
 })
 
 class MockFetch {
-  #map: { [index: string]: string }
+  private map: { [index: string]: string }
 
   constructor(urlToText: { [index: string]: string }) {
-    this.#map = urlToText
+    this.map = urlToText
   }
 
   setup() {
-    uriToText = this.#map
+    uriToText = this.map
   }
 
   teardown() {
