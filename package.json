@@ -36,7 +36,7 @@
     }
   },
   "devDependencies": {
-    "@blackglory/jest-matchers": "^0.2.1",
+    "@blackglory/jest-matchers": "0.3",
     "@blackglory/pass": "^1.0.0",
     "@commitlint/cli": "^16.3.0",
     "@commitlint/config-conventional": "^16.2.4",
