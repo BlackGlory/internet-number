@@ -10,6 +10,7 @@
   "repository": "git@github.com:BlackGlory/internet-number.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
+  "sideEffects": false,
   "engines": {
     "node": ">=14"
   },
