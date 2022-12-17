@@ -4,7 +4,6 @@ import { IRecord, ISummary, IVersion } from '@src/types'
 import * as path from 'path'
 import * as fs from 'fs'
 import { toArray, toArrayAsync } from 'iterable-operator'
-import '@blackglory/jest-matchers'
 
 describe('parseFormat(lines: Iterable<string>) -> Iterable<IVersion | ISummary | IRecord>', () => {
   describe('call', () => {
@@ -14,7 +13,6 @@ describe('parseFormat(lines: Iterable<string>) -> Iterable<IVersion | ISummary |
       const iter = parseFormat(iterable)
       const result = toArray(iter)
 
-      expect(iter).toBeIterable()
       expect(result).toEqual(getExpected())
     })
   })
@@ -28,7 +26,6 @@ describe('parseFormatAsync(lines: AsyncIterable<string>) -> AsyncIterable<IVersi
       const iter = parseFormatAsync(iterable)
       const result = await toArrayAsync(iter)
 
-      expect(iter).toBeAsyncIterable()
       expect(result).toEqual(getExpected())
     })
   })
@@ -42,7 +39,6 @@ describe('parseStatisticsFile(filename: string) -> AsyncIterable<Version | Summa
       const iter = parseStatisticsFile(filename)
       const result = await toArrayAsync(iter)
 
-      expect(iter).toBeAsyncIterable()
       expect(result).toEqual(getExpected())
     })
   })
