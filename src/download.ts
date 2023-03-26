@@ -3,6 +3,7 @@ import md5File from 'md5-file'
 import { fetchLatestChecksum, fetchLatestStatisticsFile } from './fetch.js'
 import { Domain, Registry } from './url.js'
 import { CustomError } from '@blackglory/errors'
+import { pipeline } from 'stream/promises'
 
 /**
  * @throws {ChecksumIncorrectError}
@@ -25,18 +26,13 @@ export async function downloadLatestStatisticsFile(
     }
   }
 
-  async function saveFile(readStream: NodeJS.ReadableStream, filename: string): Promise<string> {
+  async function saveFile(
+    readStream: NodeJS.ReadableStream
+  , filename: string
+  ): Promise<string> {
     const writeStream = fs.createWriteStream(filename)
-    await pipeStream(readStream, writeStream)
+    await pipeline(readStream, writeStream)
     return filename
-
-    function pipeStream(readStream: NodeJS.ReadableStream, writeStream: NodeJS.WritableStream) {
-      return new Promise((resolve, reject) => {
-        writeStream.once('error', reject)
-        writeStream.once('close', resolve)
-        readStream.pipe(writeStream)
-      })
-    }
   }
 }
 

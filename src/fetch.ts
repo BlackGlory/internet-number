@@ -39,7 +39,10 @@ export async function fetchLatestChecksum(
   }
 }
 
-export async function fetchLatestStatisticsFile(domain: Domain, registry: Registry): Promise<NodeJS.ReadableStream> {
+export async function fetchLatestStatisticsFile(
+  domain: Domain
+, registry: Registry
+): Promise<NodeJS.ReadableStream> {
   const url = createExtendedLatestURL(domain, registry)
   return await createReadStreamFromURL(url)
 }
