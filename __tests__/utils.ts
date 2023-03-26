@@ -1,22 +1,22 @@
-import * as fs from 'fs'
-import * as path from 'path'
+import fs from 'fs'
+import path from 'path'
 import { createTempNameSync } from 'extra-filesystem'
 import { pass } from '@blackglory/pass'
 
-export function getStatisticsFileContent(): string {
-  const fs = jest.requireActual('fs')
+export async function getStatisticsFileContent(): Promise<string> {
+  const mockFs: typeof fs = await vi.importActual('fs')
   const filename = path.join(__dirname, './fixtures/statistics.txt')
-  return fs.readFileSync(filename, 'utf-8')
+  return mockFs.readFileSync(filename, 'utf-8')
 }
 
-export function getChecksum(): string {
-  return getChecksumFileContent().match(/[\w\d]{32}/)![0]
+export async function getChecksum(): Promise<string> {
+  return (await getChecksumFileContent()).match(/[\w\d]{32}/)![0]
 }
 
-export function getChecksumFileContent(): string {
-  const fs = jest.requireActual('fs')
+export async function getChecksumFileContent(): Promise<string> {
+  const mockFs: typeof fs = await vi.importActual('fs')
   const filename = path.join(__dirname, './fixtures/checksum.md5')
-  return fs.readFileSync(filename, 'utf-8')
+  return mockFs.readFileSync(filename, 'utf-8')
 }
 
 export class FakeFile {

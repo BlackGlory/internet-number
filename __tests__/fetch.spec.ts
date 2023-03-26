@@ -1,38 +1,40 @@
 import { PassThrough } from 'stream'
 import * as stream from 'stream'
-import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from '@src/url'
-import { getChecksum, getChecksumFileContent, getStatisticsFileContent } from '@test/utils'
+import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from '@src/url.js'
+import { getChecksum, getChecksumFileContent, getStatisticsFileContent } from '@test/utils.js'
 import { getErrorPromise } from 'return-style'
-import { fetchLatestChecksum, fetchLatestStatisticsFile, UnknownChecksumError } from '@src/fetch'
+import { fetchLatestChecksum, fetchLatestStatisticsFile, UnknownChecksumError } from '@src/fetch.js'
 
 let uriToText: { [index: string]: string } = {}
-jest.mock('get-uri', () => {
-  return async function getUri(uri: string): Promise<NodeJS.ReadableStream> {
-    if (uri in uriToText) {
-      const pass = new PassThrough()
-      pass.write(uriToText[uri])
-      pass.end()
-      return pass
-    } else {
-      throw new Error('Bad URL')
+vi.mock('get-uri', () => {
+  return {
+    default: async function getUri(uri: string): Promise<NodeJS.ReadableStream> {
+      if (uri in uriToText) {
+        const pass = new PassThrough()
+        pass.write(uriToText[uri])
+        pass.end()
+        return pass
+      } else {
+        throw new Error('Bad URL')
+      }
     }
   }
 })
 
-describe('fetchChecksum(domain: Domain, registry: Registry): Promise<string>', () => {
+describe('fetchChecksum', () => {
   describe('checksum is normal', () => {
     it('return checksum', async () => {
       const domain = Domain.AFRINIC
       const registry = Registry.AFRINIC
       const mockFetch = new MockFetch({
-        [createExtendedLatestChecksumURL(domain, registry)]: getChecksumFileContent()
+        [createExtendedLatestChecksumURL(domain, registry)]: await getChecksumFileContent()
       })
       mockFetch.setup()
 
       try {
         const result = await fetchLatestChecksum(domain, registry)
 
-        expect(result).toBe(getChecksum())
+        expect(result).toBe(await getChecksum())
       } finally {
         mockFetch.teardown()
       }
@@ -60,13 +62,13 @@ describe('fetchChecksum(domain: Domain, registry: Registry): Promise<string>', (
   })
 })
 
-describe('fetchLatestStatisticsFile(domain: Domain, registry: Registry): Promise<NodeJS.ReadableStream>', () => {
+describe('fetchLatestStatisticsFile', () => {
   describe('call', () => {
     it('return ReadableStream', async () => {
       const domain = Domain.AFRINIC
       const registry = Registry.AFRINIC
       const mockFetch = new MockFetch({
-        [createExtendedLatestURL(domain, registry)]: getStatisticsFileContent()
+        [createExtendedLatestURL(domain, registry)]: await getStatisticsFileContent()
       })
       mockFetch.setup()
 

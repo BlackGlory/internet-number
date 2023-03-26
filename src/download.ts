@@ -1,7 +1,7 @@
-import * as fs from 'fs'
+import fs from 'fs'
 import md5File from 'md5-file'
-import { fetchLatestChecksum, fetchLatestStatisticsFile } from './fetch'
-import { Domain, Registry } from './url'
+import { fetchLatestChecksum, fetchLatestStatisticsFile } from './fetch.js'
+import { Domain, Registry } from './url.js'
 import { CustomError } from '@blackglory/errors'
 
 /**

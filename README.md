@@ -1,9 +1,7 @@
-# internet-number [![npm](https://img.shields.io/npm/v/internet-number.svg?maxAge=86400)](https://www.npmjs.com/package/internet-number) [![GitHub license](https://img.shields.io/badge/license-MIT-blue.svg)](https://raw.githubusercontent.com/BlackGlory/internet-number/master/LICENSE)
-
+# internet-number
 Utilities for fethcing and parsing latest statistics files from RIR
 
 ## Install
-
 ```sh
 npm install --save internet-number
 # or
@@ -11,7 +9,6 @@ yarn add internet-number
 ```
 
 ## Usage
-
 ```typescript
 const filename = await downloadLatestStatisticsFile(
   Domian.AFRINIC
@@ -27,7 +24,6 @@ for await (const value of parseStatisticsFile(filename)) {
 ```
 
 ## API
-
 ```ts
 interface IVersion {
   version: string
@@ -59,7 +55,6 @@ interface IRecord {
 ```
 
 ### downloadLatestStatisticsFile
-
 ```ts
 function downloadLatestStatisticsFile(
   domain: Domain
@@ -69,13 +64,11 @@ function downloadLatestStatisticsFile(
 ```
 
 ### fetchLatestChecksum
-
 ```ts
 function fetchLatestChecksum(domain: Domain, registry: Registry): Promise<string>
 ```
 
 ### fetchLatestStatisticsFile
-
 ```ts
 function fetchLatestStatisticsFile(
   domain: Domain
@@ -84,7 +77,6 @@ function fetchLatestStatisticsFile(
 ```
 
 ### parseStatisticsFile
-
 ```ts
 function parseStatisticsFile(
   filename: string
@@ -92,13 +84,11 @@ function parseStatisticsFile(
 ```
 
 ### parseFormat
-
 ```ts
 function parseFormat(lines: Iterable<string>): Iterable<IVersion | ISummary | IRecord>
 ```
 
 ### parseFormatAsync
-
 ```ts
 function parseFormatAsync(
   lines: AsyncIterable<string>
@@ -106,19 +96,16 @@ function parseFormatAsync(
 ```
 
 ### isVersion
-
 ```ts
 function isVersion(val: IVersion | ISummary | IRecord): boolean
 ```
 
 ### isSummary
-
 ```ts
 function isSummary(val: IVersion | ISummary | IRecord): boolean
 ```
 
 ### isRecord
-
 ```ts
 function isRecord(val: IVersion | ISummary | IRecord): boolean
 ```

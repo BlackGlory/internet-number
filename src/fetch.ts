@@ -1,5 +1,5 @@
 import getUri from 'get-uri'
-import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from './url'
+import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from './url.js'
 import { CustomError } from '@blackglory/errors'
 
 /**

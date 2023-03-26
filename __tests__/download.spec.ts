@@ -1,32 +1,28 @@
 import { PassThrough } from 'stream'
-import { Domain, Registry } from '@src/url'
-import { downloadLatestStatisticsFile, ChecksumIncorrectError } from '@src/download'
-import { UnknownChecksumError } from '@src/fetch'
+import { Domain, Registry } from '@src/url.js'
+import { downloadLatestStatisticsFile, ChecksumIncorrectError } from '@src/download.js'
+import { UnknownChecksumError } from '@src/fetch.js'
 import { getErrorPromise } from 'return-style'
-import { createExtendedLatestURL, createExtendedLatestChecksumURL } from '@src/url'
-import { getChecksumFileContent, getStatisticsFileContent, FakeFile } from '@test/utils'
+import { createExtendedLatestURL, createExtendedLatestChecksumURL } from '@src/url.js'
+import { getChecksumFileContent, getStatisticsFileContent, FakeFile } from '@test/utils.js'
 
 let uriToText: { [index: string]: string } = {}
-jest.mock('get-uri', () => {
-  return async function getUri(uri: string): Promise<NodeJS.ReadableStream> {
-    if (uri in uriToText) {
-      const pass = new PassThrough()
-      pass.write(uriToText[uri])
-      pass.end()
-      return pass
-    } else {
-      throw new Error('Bad URL')
+vi.mock('get-uri', () => {
+  return {
+    default: async function getUri(uri: string): Promise<NodeJS.ReadableStream> {
+      if (uri in uriToText) {
+        const pass = new PassThrough()
+        pass.write(uriToText[uri])
+        pass.end()
+        return pass
+      } else {
+        throw new Error('Bad URL')
+      }
     }
   }
 })
 
-describe(`
-  downloadLatestStatisticsFile(
-    domain: Domain
-  , registry: Registry
-  , filename: string
-  ): Promise<string>
-`, () => {
+describe('downloadLatestStatisticsFile', () => {
   describe('checksum is right', () => {
     it('download file and return filename', async () => {
       const fakeFile = new FakeFile()
@@ -34,8 +30,8 @@ describe(`
       const registry = Registry.AFRINIC
       const filename = fakeFile.getFilename()
       const mockFetch = new MockFetch({
-        [createExtendedLatestURL(domain, registry)]: getStatisticsFileContent()
-      , [createExtendedLatestChecksumURL(domain, registry)]: getChecksumFileContent()
+        [createExtendedLatestURL(domain, registry)]: await getStatisticsFileContent()
+      , [createExtendedLatestChecksumURL(domain, registry)]: await getChecksumFileContent()
       })
       fakeFile.setup()
       mockFetch.setup()
@@ -49,7 +45,7 @@ describe(`
         const content = fakeFile.getContent()
 
         expect(resultFilename).toBe(filename)
-        expect(content).toBe(getStatisticsFileContent())
+        expect(content).toBe(await getStatisticsFileContent())
       } finally {
         fakeFile.teardown()
         mockFetch.teardown()
@@ -64,7 +60,7 @@ describe(`
       const registry = Registry.AFRINIC
       const filename = fakeFile.getFilename()
       const mockFetch = new MockFetch({
-        [createExtendedLatestURL(domain, registry)]: getStatisticsFileContent()
+        [createExtendedLatestURL(domain, registry)]: await getStatisticsFileContent()
       , [createExtendedLatestChecksumURL(domain, registry)]: ''
       })
       fakeFile.setup()
@@ -93,7 +89,7 @@ describe(`
       const filename = fakeFile.getFilename()
       const incorrectChecksum = 'MD5 (delegated-afrinic-latest) = 00000000000000000000000000000000'
       const mockFetch = new MockFetch({
-        [createExtendedLatestURL(domain, registry)]: getStatisticsFileContent()
+        [createExtendedLatestURL(domain, registry)]: await getStatisticsFileContent()
       , [createExtendedLatestChecksumURL(domain, registry)]: incorrectChecksum
       })
       fakeFile.setup()

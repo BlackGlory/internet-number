@@ -1,11 +1,15 @@
-import { parseFormat, parseFormatAsync, parseStatisticsFile } from '@src/parse'
-import { isVersion, isSummary, isRecord } from '@src/parse'
-import { IRecord, ISummary, IVersion } from '@src/types'
-import * as path from 'path'
-import * as fs from 'fs'
+import { parseFormat, parseFormatAsync, parseStatisticsFile } from '@src/parse.js'
+import { isVersion, isSummary, isRecord } from '@src/parse.js'
+import { IRecord, ISummary, IVersion } from '@src/types.js'
+import path from 'path'
+import fs from 'fs'
 import { toArray, toArrayAsync } from 'iterable-operator'
+import { fileURLToPath } from 'url'
+import { readJSONFileSync } from 'extra-filesystem'
 
-describe('parseFormat(lines: Iterable<string>) -> Iterable<IVersion | ISummary | IRecord>', () => {
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+
+describe('parseFormat', () => {
   describe('call', () => {
     it('return Iterable', () => {
       const iterable = textToLineIterable(getStatistics())
@@ -18,7 +22,7 @@ describe('parseFormat(lines: Iterable<string>) -> Iterable<IVersion | ISummary |
   })
 })
 
-describe('parseFormatAsync(lines: AsyncIterable<string>) -> AsyncIterable<IVersion | Isummary | IRecord>', () => {
+describe('parseFormatAsync', () => {
   describe('call', () => {
     it('return AsyncIterable', async () => {
       const iterable = textToLineAsyncIterable(getStatistics())
@@ -31,7 +35,7 @@ describe('parseFormatAsync(lines: AsyncIterable<string>) -> AsyncIterable<IVersi
   })
 })
 
-describe('parseStatisticsFile(filename: string) -> AsyncIterable<Version | Summary | Record>', () => {
+describe('parseStatisticsFile', () => {
   describe('call', () => {
     it('return AsyncIterable', async () => {
       const filename = getStatisticsFilename()
@@ -44,7 +48,7 @@ describe('parseStatisticsFile(filename: string) -> AsyncIterable<Version | Summa
   })
 })
 
-describe('isVersion(val: IVersion | ISummary | IRecord) -> boolean', () => {
+describe('isVersion', () => {
   describe('val is IVersion', () => {
     it('return true', () => {
       const val: IVersion = {
@@ -79,7 +83,7 @@ describe('isVersion(val: IVersion | ISummary | IRecord) -> boolean', () => {
   })
 })
 
-describe('isSummary(val: IVersion | ISummary | IRecord) -> boolean', () => {
+describe('isSummary', () => {
   describe('val is Summary', () => {
     it('return true', () => {
       const val: ISummary = {
@@ -114,7 +118,7 @@ describe('isSummary(val: IVersion | ISummary | IRecord) -> boolean', () => {
   })
 })
 
-describe('isVersion(val: IVersion | ISummary | IRecord) -> boolean', () => {
+describe('isVersion', () => {
   describe('val is IVersion', () => {
     it('return true', () => {
       const val: IRecord = {
@@ -160,7 +164,7 @@ function getStatistics(): string {
 }
 
 function getExpected(): unknown[] {
-  return require('./fixtures/expected.json')
+  return readJSONFileSync(path.join(__dirname, './fixtures/expected.json'))
 }
 
 function textToLineIterable(text: string): Iterable<string> {

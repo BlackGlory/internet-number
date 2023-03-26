@@ -5,60 +5,56 @@
   "files": [
     "lib"
   ],
-  "main": "lib/es2018/index.js",
-  "types": "lib/es2018/index.d.ts",
+  "type": "module",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "repository": "git@github.com:BlackGlory/internet-number.git",
   "author": "BlackGlory <woshenmedoubuzhidao@blackglory.me>",
   "license": "MIT",
   "sideEffects": false,
   "engines": {
-    "node": ">=14"
+    "node": ">=16"
   },
   "scripts": {
+    "prepare": "ts-patch install -s",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx --quiet src __tests__",
-    "test": "jest --config jest.config.js",
-    "test:debug": "node --inspect-brk node_modules/.bin/jest --runInBand",
-    "test:coverage": "jest --coverage --config jest.config.js",
-    "prepublishOnly": "run-s clean build",
+    "test": "vitest --run",
+    "prepublishOnly": "run-s prepare clean build",
     "clean": "rimraf lib",
-    "build": "run-p build:*",
-    "build:es2015": "run-s build:es2015:*",
-    "build:es2015:compile": "tsc --project tsconfig.build.json --target es2015 --outDir lib/es2015",
-    "build:es2015:patch": "tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2015",
-    "build:es2018": "run-s build:es2018:*",
-    "build:es2018:compile": "tsc --project tsconfig.build.json --target es2018 --outDir lib/es2018",
-    "build:es2018:patch": "tscpaths -p tsconfig.build.json -s ./src -o ./lib/es2018",
+    "build": "tsc --project tsconfig.build.json",
     "release": "standard-version"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-s lint build test",
+      "pre-commit": "run-s prepare lint build test",
       "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
     }
   },
   "devDependencies": {
-    "@blackglory/pass": "^1.0.0",
-    "@commitlint/cli": "^16.3.0",
-    "@commitlint/config-conventional": "^16.2.4",
-    "@types/jest": "^27.5.1",
-    "@types/node": "14",
-    "@typescript-eslint/eslint-plugin": "^5.23.0",
-    "@typescript-eslint/parser": "^5.23.0",
-    "eslint": "^8.15.0",
+    "@blackglory/pass": "^1.1.0",
+    "@commitlint/cli": "^17.5.0",
+    "@commitlint/config-conventional": "^17.4.4",
+    "@types/node": "16",
+    "@typescript-eslint/eslint-plugin": "^5.56.0",
+    "@typescript-eslint/parser": "^5.56.0",
+    "cross-env": "^7.0.3",
+    "eslint": "^8.36.0",
     "husky": "^4.3.6",
-    "iterable-operator": "^1.1.0",
-    "jest": "^27.4.5",
+    "iterable-operator": "^4.0.5",
     "npm-run-all": "^4.1.5",
-    "return-style": "^1.0.0",
+    "return-style": "^3.0.0",
     "rimraf": "^3.0.2",
-    "standard-version": "^9.3.2",
-    "ts-jest": "^27.1.2",
-    "tscpaths": "^0.0.9",
-    "typescript": "^4.6.4"
+    "standard-version": "^9.5.0",
+    "ts-patch": "^2.1.0",
+    "typescript": "4.8",
+    "typescript-transform-paths": "^3.4.6",
+    "vite": "^4.2.1",
+    "vite-tsconfig-paths": "^4.0.7",
+    "vitest": "^0.29.7"
   },
   "dependencies": {
-    "@blackglory/errors": "^2.2.1",
-    "extra-filesystem": "^0.4.2",
+    "@blackglory/errors": "^3.0.0",
+    "extra-filesystem": "^0.4.10",
     "get-uri": "^4.0.0",
     "md5-file": "^5.0.0"
   }
