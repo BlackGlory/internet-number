@@ -2,17 +2,16 @@ import { parseFormat, parseFormatAsync, parseStatisticsFile } from '@src/parse.j
 import { isVersion, isSummary, isRecord } from '@src/parse.js'
 import { IRecord, ISummary, IVersion } from '@src/types.js'
 import path from 'path'
-import fs from 'fs'
 import { toArray, toArrayAsync } from 'iterable-operator'
 import { fileURLToPath } from 'url'
-import { readJSONFileSync } from 'extra-filesystem'
+import { readJSONFileSync, readFileLineByLine, readFileLineByLineSync } from 'extra-filesystem'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 describe('parseFormat', () => {
   describe('call', () => {
     it('return Iterable', () => {
-      const iterable = textToLineIterable(getStatistics())
+      const iterable = readFileLineByLineSync(getStatisticsFilename())
 
       const iter = parseFormat(iterable)
       const result = toArray(iter)
@@ -25,7 +24,7 @@ describe('parseFormat', () => {
 describe('parseFormatAsync', () => {
   describe('call', () => {
     it('return AsyncIterable', async () => {
-      const iterable = textToLineAsyncIterable(getStatistics())
+      const iterable = readFileLineByLine(getStatisticsFilename())
 
       const iter = parseFormatAsync(iterable)
       const result = await toArrayAsync(iter)
@@ -158,19 +157,6 @@ function getStatisticsFilename() {
   return path.join(__dirname, './fixtures/statistics.txt')
 }
 
-function getStatistics(): string {
-  return fs.readFileSync(getStatisticsFilename(), { encoding: 'utf8' })
-
-}
-
 function getExpected(): unknown[] {
   return readJSONFileSync(path.join(__dirname, './fixtures/expected.json'))
-}
-
-function textToLineIterable(text: string): Iterable<string> {
-  return text.split('\n')
-}
-
-async function* textToLineAsyncIterable(text: string): AsyncIterable<string> {
-  for await (const line of text.split('\n')) yield line
 }
