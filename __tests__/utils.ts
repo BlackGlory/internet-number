@@ -41,6 +41,6 @@ export class FakeFile {
   }
 
   getContent(): string {
-    return fs.readFileSync(this.getFilename(), 'utf-8') as string
+    return fs.readFileSync(this.getFilename(), 'utf-8')
   }
 }
