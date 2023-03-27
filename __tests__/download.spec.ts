@@ -112,9 +112,9 @@ describe('downloadLatestStatisticsFile', () => {
 })
 
 class MockFetch {
-  private map: { [index: string]: string }
+  private map: Record<string, string>
 
-  constructor(urlToText: { [index: string]: string }) {
+  constructor(urlToText: Record<string, string>) {
     this.map = urlToText
   }
 

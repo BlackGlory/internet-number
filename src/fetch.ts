@@ -1,6 +1,7 @@
 import getUri from 'get-uri'
 import { Domain, Registry, createExtendedLatestChecksumURL, createExtendedLatestURL } from './url.js'
 import { CustomError } from '@blackglory/errors'
+import { assert } from '@blackglory/errors'
 
 /**
  * @throws {UnknownChecksumError}
@@ -25,13 +26,16 @@ export async function fetchLatestChecksum(
     }
   }
 
-  function readStringFromStream(stream: NodeJS.ReadableStream): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const chunks: Buffer[] = []
-      stream.once('error', reject)
-      stream.on('data', chunk => chunks.push(chunk))
-      stream.once('end', () => resolve(toASCII(chunks)))
-    })
+  async function readStringFromStream(
+    stream: NodeJS.ReadableStream
+  ): Promise<string> {
+    const chunks: Buffer[] = []
+    for await (const chunk of stream) {
+      assert(chunk instanceof Buffer, 'The chunk should be a Buffer')
+
+      chunks.push(chunk)
+    }
+    return toASCII(chunks)
 
     function toASCII(buffer: Buffer[]): string {
       return Buffer.concat(buffer).toString('ascii')
