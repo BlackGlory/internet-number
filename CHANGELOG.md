@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/BlackGlory/internet-number/compare/v4.0.0...v4.0.1) (2023-06-11)
+
+
+### Bug Fixes
+
+* export src ([c8f4496](https://github.com/BlackGlory/internet-number/commit/c8f44962a4644aa9faa726b72f8e8f72e3891d61))
+
 ## [4.0.0](https://github.com/BlackGlory/internet-number/compare/v3.0.3...v4.0.0) (2023-03-27)
 
 
