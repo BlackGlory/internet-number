@@ -1,5 +1,5 @@
 import fs from 'fs'
-import md5File from 'md5-file'
+import { checksumFile } from 'extra-filesystem'
 import { fetchLatestChecksum, fetchLatestStatisticsFile } from './fetch.js'
 import { Domain, Registry } from './url.js'
 import { CustomError } from '@blackglory/errors'
@@ -20,7 +20,7 @@ export async function downloadLatestStatisticsFile(
   return filename
 
   async function checkFile(filename: string, checksum: string): Promise<void> {
-    const fileChecksum = await md5File(filename)
+    const fileChecksum = await checksumFile('md5', filename)
     if (fileChecksum !== checksum) {
       throw new ChecksumIncorrectError(checksum, fileChecksum)
     }

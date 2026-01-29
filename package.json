@@ -56,7 +56,6 @@
   "dependencies": {
     "@blackglory/errors": "^3.0.0",
     "extra-filesystem": "^0.4.10",
-    "get-uri": "^4.0.0",
-    "md5-file": "^5.0.0"
+    "get-uri": "^4.0.0"
   }
 }
