@@ -1,6 +1,6 @@
 import fs from 'fs'
 import path from 'path'
-import { createTempNameSync } from 'extra-filesystem'
+import { createTempNameSync, pathExistsSync, removeSync } from 'extra-filesystem'
 import { pass } from '@blackglory/pass'
 
 export async function getStatisticsFileContent(): Promise<string> {
@@ -27,8 +27,8 @@ export class FakeFile {
   }
 
   teardown() {
-    if (fs.existsSync(this.getFilename())) {
-      fs.rmSync(this.getFilename())
+    if (pathExistsSync(this.getFilename())) {
+      removeSync(this.getFilename())
     }
   }
 
@@ -37,7 +37,7 @@ export class FakeFile {
   }
 
   exists(): boolean {
-    return fs.existsSync(this.getFilename())
+    return pathExistsSync(this.getFilename())
   }
 
   getContent(): string {

@@ -23,7 +23,7 @@ vi.mock('get-uri', () => {
 })
 
 describe('downloadLatestStatisticsFile', () => {
-  describe('checksum is right', () => {
+  describe('checksum is correct', () => {
     it('download file and return filename', async () => {
       const fakeFile = new FakeFile()
       const domain = Domain.AFRINIC
@@ -54,7 +54,7 @@ describe('downloadLatestStatisticsFile', () => {
   })
 
   describe('checksum is unknown', () => {
-    it('not download file and throw UnknownChecksumError', async () => {
+    it('do not download file and throw UnknownChecksumError', async () => {
       const fakeFile = new FakeFile()
       const domain = Domain.AFRINIC
       const registry = Registry.AFRINIC
