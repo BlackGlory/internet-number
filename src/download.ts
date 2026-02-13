@@ -22,6 +22,7 @@ export async function downloadLatestStatisticsFile(
   async function checkFile(filename: string, checksum: string): Promise<void> {
     const fileChecksum = await checksumFile('md5', filename)
     if (fileChecksum !== checksum) {
+      // 此处不会自动删除文件, 调用者知道文件名, 因此可以自行决定是否删除.
       throw new ChecksumIncorrectError(checksum, fileChecksum)
     }
   }
